@@ -1,2 +1,0 @@
-# training
-my training repozitory

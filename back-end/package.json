@@ -1,0 +1,32 @@
+{
+  "name": "back-end",
+  "version": "1.0.0",
+  "description": "My backend",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.16.4"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.0.5",
+    "babel-preset-env": "^1.7.0",
+    "nodemon": "^1.18.10"
+  },
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bchioran/training.git"
+  },
+  "keywords": [
+    "react"
+  ],
+  "author": "Chioran Bogdan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bchioran/training/issues"
+  },
+  "homepage": "https://github.com/bchioran/training#readme"
+}
