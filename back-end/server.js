@@ -1,43 +1,20 @@
-const express = require('express');
-const app = express();
+import express from 'express';
+import {ApolloServer, gql} from 'apollo-server-express';
+import graphqlHTTP from 'express-graphql';
+import resolvers from './resolvers';
+import typeDefs from './schema';
+
 const port = 8000;
-const {graphql, buildSchema} = require('graphql');
-const graphqlHTTP = require('express-graphql');
+const server = new ApolloServer({typeDefs, resolvers});
+const app = express();
 
-app.get('/', (req, res) => res.send('Hello Bogdi, from Express !'));
-
-
-// Construct a schema, using GraphQL schema language
-let schema = buildSchema(`
-  type Query {
-    hello: String
-    goodbye: String
-  }
-`);
-
-// The root provides a resolver function for each API endpoint
-let root = {
-    hello: () => {
-        return 'Hello Bogdi, From GraphQL!';
-    },
-    goodbye: () => {
-        return 'Goodbye Bogdi, From GraphQL!';
-    },
-};
-
-// Run the GraphQL query '{ hello }' and print out the response
-graphql(schema, '{ hello }', root).then((response) => {
-    console.log(response);
-});
-graphql(schema, '{ goodbye }', root).then((response) => {
-    console.log(response);
-});
-
-app.use('/graphQL', graphqlHTTP({
-    schema: schema,
-    rootValue: root,
+app.get('/graphql', graphqlHTTP({
+    schema: typeDefs,
     graphiql: true
 }));
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
-console.log('GraphQL API Server up and running at localhost:' + port);
+server.applyMiddleware({app});
+
+app.listen({port: port}, () =>
+    console.log(`Apollo Server ready at http://localhost:${port}${server.graphqlPath}`)
+);
